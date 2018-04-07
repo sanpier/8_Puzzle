@@ -2,8 +2,8 @@
 public class Puzzle_Problem {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+    	Board board = new Board();     		   	    	
+    	MainPanel panel = new MainPanel(board);   
 	}
-
+	
 }
