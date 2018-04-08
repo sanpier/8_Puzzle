@@ -1,64 +1,92 @@
 import java.awt.Component;
 import java.awt.Graphics;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Random;
 
-import javax.swing.ImageIcon;
-
-public class Board implements Drawable {
-
-	//Variables
-	private ArrayList<Grid> grids;
-	private ArrayList<Integer> list;
-	ImageIcon board;
+public class Board {
 	
-	//Constructor	
-    public Board(){
-    	initializeGrids();    	
-    	board = new ImageIcon("src/chessboard.png");
-    }  
+	//Variables
+	private Grid[][] grids;
+	private ArrayList<Integer> nums;
+	private ArrayList<Piece> pieces;	
+	
+	//Constructor
+	public Board()
+	{
+		grids = new Grid[3][3];
+		initializeGrids();
+		
+		nums = new ArrayList<Integer>();
+		for(int i = 1; i <= 8; i++)
+			nums.add(i);
+				
+		pieces = new ArrayList<Piece>();
+    	initializePieces();  
     	
-    //Functions
-    public void initializeGrids() {
-    	grids = new ArrayList<Grid>();    	
-    	Grid newOne;
+    	assignPiecesToGrids();
+	}
+	
+	//Initializers
+	public void initializeGrids() {		
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+				grids[i][j] = new Grid(i,j);
+			} 
+		}
+	}
+	
+	public void initializePieces() {
+		Piece newOne;
+		for(int i = 1; i <= 8; i++) {
+			newOne = new Piece(i);
+			pieces.add(newOne);
+		}			
+	}
+	
+	public void assignPiecesToGrids() {
+		Random generator = new Random();
+		int randIndex;
+		int randNum;
+		
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+				if(i!=2 || j!=2) {
+			    	randIndex = generator.nextInt(nums.size());
+			    	randNum = nums.get(randIndex);
+			    	nums.remove(randIndex);
+			    	grids[i][j].setValue(pieces.get(randNum-1));
+				}				
+			} 
+		}
+	}
+	
+	//Getters
+	public Grid getGrid(int x, int y) {
+		return grids[x][y];
+	}
+	
+	//Calculations
+	public int calcBoardCost() {
+    	int cost = 0;
+    	for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+	    		cost = cost + grids[i][j].calcOneGridCost();
+			}				
+		} 
     	
-    	list = new ArrayList<Integer>();    	
-    	for(int i = 1; i <= 8; i++)
-    		list.add(i);
-    	    	
-    	for(int i = 1; i <= 8; i++){
-        	Random generator = new Random(); 
-        	int randomIndex = generator.nextInt(list.size());
-        	int randomNum = list.get(randomIndex);
-        	//System.out.println(randomNum);
-        	
-        	list.remove(randomIndex);
-        	//printArray();
-        	
-        	int x = randomNum % 3;
-        	int y = (int)Math.floor(randomNum / 3);
-        	
-    		newOne = new Grid(x, y, i);
-    		grids.add(newOne);
-    	}
-    }
-    
-    public void printArray() {
-    	for(int i = 0; i < list.size(); i++)
-    		System.out.print(list.get(i) + " ");
+    	/*
     	System.out.println();
+		System.out.println("Cost is: " + cost);
+		*/    	
+    	return cost;
     }
-    
-    //Draw
-    @Override
-	public void draw(Component c, Graphics g)
-	{
-    	board.paintIcon(c, g, 10, 10);						
-	}    
-
-	public void drawAllGrids(Component c, Graphics g)
-	{
-		for(int i = 0; i < grids.size(); i++)
-			grids.get(i).draw(c, g);						
+	
+	//Draws
+	public void drawAllGrids(Component c, Graphics g){
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+				grids[i][j].draw(c, g);	
+			}				
+		} 					
 	}
 }

@@ -33,8 +33,7 @@ public class MainPanel extends JPanel{
     public void paintComponent(Graphics g)//Drawing cards
 	{
 		super.paintComponent(g);//Default (must)	
-				
-		board.draw(this, g);	
+					
 		board.drawAllGrids(this, g);
 	}
     
@@ -61,7 +60,7 @@ public class MainPanel extends JPanel{
 	}	
     						    
     //Functions
-    public Board getBoard()
+    public Board getLogic()
     {
 		return board;
 	}
