@@ -87,16 +87,15 @@ public class MainPanel extends JPanel{
 				Object current = event.getSource();
 							
 				if(current == right)
-					frame.dispose();
-				else if(current == left){
-							
-				}
-				else if(current == up){
-					
-				}	
-				else if(current == down){
-					
-				}	
+					board.moveRight();
+				else if(current == left)
+					board.moveLeft();
+				else if(current == up)
+					board.moveUp();
+				else if(current == down)
+					board.moveDown();
+				
+				repaint();
 			}
 			catch(Exception e)
 			{

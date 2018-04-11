@@ -124,6 +124,7 @@ public class Board /*implements Drawable*/{
 	public void exchangeGrids(Grid a, Grid b) {
 		a.setXandY(b.getX(), b.getY());
 		b.setXandY(a.getX(), a.getY());
+		setBlankGrid();
 	}
 	
 	//Draws
