@@ -32,8 +32,9 @@ public class Logic{
 	
 	//Move Grids	
 	public void moveRight() {
-		Grid mover = board.getGrid(board.getBlank().getX()-1, board.getBlank().getY());
-		board.changeTwo(mover, board.getBlank());
+		/*Grid mover = board.getGrid(board.getBlank().getX()-1, board.getBlank().getY());
+		board.changeTwo(mover, board.getBlank());*/
+		board.changeTwo(board.getGrid(0,0), board.getGrid(0,1));
 	}
 	
 	public void moveLeft() {

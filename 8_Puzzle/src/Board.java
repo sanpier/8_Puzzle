@@ -28,6 +28,8 @@ public class Board {
 	    	
 	   	assignPieces();
 	   	setBlankGrid();
+	   	printPieces();
+	   	printGrids();
 	}
 	
 	//Initializers
@@ -81,14 +83,20 @@ public class Board {
 	}
 	
 	public void changeTwo(Grid a, Grid b) {
-		Grid c = grids[a.getX()][a.getY()];	
+		int x = a.getX();
+		int y = a.getY();
+		int value = a.getValue();
 		
-		grids[a.getX()][a.getY()] = grids[b.getX()][b.getY()];
+		grids[a.getX()][a.getY()].setXandY(b.getX(), b.getY());
+		grids[a.getX()][a.getY()].setValue(b.getValue());
 		pieces.get(a.getValue()-1).setXandY(a.getX(), a.getY());
 		
-		grids[b.getX()][b.getY()] = c;
+		grids[b.getX()][b.getY()].setXandY(x, y);
+		grids[b.getX()][b.getY()].setValue(value);
 		pieces.get(b.getValue()-1).setXandY(b.getX(), b.getY());
-		setBlankGrid()
+		
+		setBlankGrid();
+		printGrids();
 	}
 		
 	//Getters
@@ -108,17 +116,11 @@ public class Board {
 		return blank;
 	}
 	
-	//Print Methods
-	public void printPieces() {
-		for(int i = 0; i < 8; i++)
-			System.out.print(pieces.get(i) + " ");
-		System.out.println();
-	}
-	
+	//Print Methods	
 	public void printGrids() {
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
-				System.out.print(grids[i][j] + " ");
+				System.out.print(grids[i][j].getValue() + " ");
 			}
 			System.out.println();
 		} 
