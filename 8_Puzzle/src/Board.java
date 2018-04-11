@@ -7,10 +7,10 @@ public class Board {
 	
 	//Variables
 	//private ImageIcon board;
-	private Grid[][] grids;
+	private static Grid[][] grids;
+	private static Grid blank;
 	private ArrayList<Integer> nums;
-	private ArrayList<Piece> pieces;	
-	private Grid blank;
+	private static ArrayList<Piece> pieces;	
 	
 	//Constructor
 	public Board()
@@ -28,7 +28,6 @@ public class Board {
 	    	
 	   	assignPieces();
 	   	setBlankGrid();
-	   	printPieces();
 	   	printGrids();
 	}
 	
@@ -82,7 +81,7 @@ public class Board {
 		}
 	}
 	
-	public void changeTwo(Grid a, Grid b) {
+	public static void changeTwo(Grid a, Grid b) {
 		int x = a.getX();
 		int y = a.getY();
 		int value = a.getValue();
@@ -94,9 +93,6 @@ public class Board {
 		grids[b.getX()][b.getY()].setXandY(x, y);
 		grids[b.getX()][b.getY()].setValue(value);
 		pieces.get(b.getValue()-1).setXandY(b.getX(), b.getY());
-		
-		setBlankGrid();
-		printGrids();
 	}
 		
 	//Getters

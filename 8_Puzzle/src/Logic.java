@@ -35,6 +35,7 @@ public class Logic{
 		/*Grid mover = board.getGrid(board.getBlank().getX()-1, board.getBlank().getY());
 		board.changeTwo(mover, board.getBlank());*/
 		board.changeTwo(board.getGrid(0,0), board.getGrid(0,1));
+		board.printGrids();
 	}
 	
 	public void moveLeft() {
