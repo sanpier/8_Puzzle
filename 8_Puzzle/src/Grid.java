@@ -1,21 +1,21 @@
-import java.awt.Component;
+/*import java.awt.Component;
 import java.awt.Graphics;
-import javax.swing.ImageIcon;
+import javax.swing.ImageIcon;*/
 
-public class Grid implements Drawable{
+public class Grid{
 	
 	// Variables
 	private int x, y;
-	private Piece value;
+	private int value;
 	
 	// Constructors
 	public Grid(int x, int y) {
 		this.x = x;
 		this.y = y;
-		value = null;
+		value = 0;
 	}
 	
-	public Grid(int x, int y, Piece val) {
+	public Grid(int x, int y, int val) {
 		this.x = x;
 		this.y = y;
 		value = val;
@@ -31,17 +31,11 @@ public class Grid implements Drawable{
 	}	
 	
 	public int getValue() {
-		if(value != null)
-			return value.getValue();
-		return 0;
+		return value;
 	}
-	
-	public ImageIcon getImage() {
-		return value.getImage();
-	}
-	
+		
 	//Setter
-	public void setValue(Piece val) {
+	public void setValue(int val) {
 		value = val;
 	}
 	
@@ -52,7 +46,7 @@ public class Grid implements Drawable{
 	
 	// Functions
 	public int calcOneGridCost() { // Heuristic Function *
-		if(value != null) {
+		if(value != 0) {
 			int solX = getValue() % 3;
 			int solY = (int) Math.floor(getValue() / 3);
 
@@ -63,9 +57,9 @@ public class Grid implements Drawable{
 	}
 	
 	// Draw
-	@Override
+	/*@Override
 	public void draw(Component c, Graphics g) {
-		if(value != null)
+		if(value != 0)
 			getImage().paintIcon(c, g, x*121 + 10, y*121 + 10);
-	}
+	}*/
 }

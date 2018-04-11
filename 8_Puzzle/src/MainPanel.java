@@ -6,13 +6,13 @@ public class MainPanel extends JPanel{
 
 	//Properties
 	JFrame frame;
-	Board board;
+	Logic board;
 				
 	//JButtons
 	JButton right, left, up, down;
 	
 	//Constructor
-    public MainPanel(Board given) {
+    public MainPanel(Logic given) {
     	
     	//Panel Constructured
 		setLayout(null);
@@ -105,7 +105,7 @@ public class MainPanel extends JPanel{
 	}	
     						    
     //Functions
-    public Board getLogic()
+    public Logic getLogic()
     {
 		return board;
 	}

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 //import javax.swing.ImageIcon;
 
-public class Board /*implements Drawable*/{
+public class Logic{
 	
 	//Variables
 	//private ImageIcon board;
@@ -14,7 +14,7 @@ public class Board /*implements Drawable*/{
 	private ArrayList<Piece> pieces;	
 	
 	//Constructor
-	public Board()
+	public Logic()
 	{
 		//board = new ImageIcon("src/board.png");
 		
@@ -124,6 +124,7 @@ public class Board /*implements Drawable*/{
 	public void exchangeGrids(Grid a, Grid b) {
 		a.setXandY(b.getX(), b.getY());
 		b.setXandY(a.getX(), a.getY());
+		
 		setBlankGrid();
 	}
 	

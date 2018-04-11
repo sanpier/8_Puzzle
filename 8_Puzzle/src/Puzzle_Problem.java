@@ -1,7 +1,7 @@
 public class Puzzle_Problem {
 
 	public static void main(String[] args) {
-		Board logic = new Board();     		   	    	
+		Logic logic = new Logic();     		   	    	
     	MainPanel panel = new MainPanel(logic);   
 	}
 }
