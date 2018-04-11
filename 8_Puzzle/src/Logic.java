@@ -1,9 +1,3 @@
-import java.awt.Component;
-import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Random;
-//import javax.swing.ImageIcon;
-
 public class Logic{
 	
 	//Variables
@@ -39,28 +33,21 @@ public class Logic{
 	//Move Grids	
 	public void moveRight() {
 		Grid mover = board.getGrid(board.getBlank().getX()-1, board.getBlank().getY());
-		exchangeGrids(mover, board.getBlank());
+		board.changeTwo(mover, board.getBlank());
 	}
 	
 	public void moveLeft() {
 		Grid mover = board.getGrid(board.getBlank().getX()+1, board.getBlank().getY());
-		exchangeGrids(mover, board.getBlank());
+		board.changeTwo(mover, board.getBlank());
 	}
 	
 	public void moveUp() {
 		Grid mover = board.getGrid(board.getBlank().getX(), board.getBlank().getY()+1);
-		exchangeGrids(mover, board.getBlank());
+		board.changeTwo(mover, board.getBlank());
 	}
 	
 	public void moveDown() {
 		Grid mover = board.getGrid(board.getBlank().getX(), board.getBlank().getY()-1);
-		exchangeGrids(mover, board.getBlank());
-	}
-	
-	public void exchangeGrids(Grid a, Grid b) {
-		a.setXandY(b.getX(), b.getY());
-		b.setXandY(a.getX(), a.getY());
-		
-		board.setBlankGrid();
+		board.changeTwo(mover, board.getBlank());
 	}
 }

@@ -29,6 +29,10 @@ public class Piece implements Drawable{
 		this.y = y;
 	}
 	
+	public void setValue(int val) {
+		this.value = val;
+	}
+	
 	// Draw
 	@Override
 	public void draw(Component c, Graphics g) {

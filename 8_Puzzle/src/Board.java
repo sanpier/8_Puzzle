@@ -80,6 +80,17 @@ public class Board {
 		}
 	}
 	
+	public void changeTwo(Grid a, Grid b) {
+		Grid c = grids[a.getX()][a.getY()];	
+		
+		grids[a.getX()][a.getY()] = grids[b.getX()][b.getY()];
+		pieces.get(a.getValue()-1).setXandY(a.getX(), a.getY());
+		
+		grids[b.getX()][b.getY()] = c;
+		pieces.get(b.getValue()-1).setXandY(b.getX(), b.getY());
+		setBlankGrid()
+	}
+		
 	//Getters
 	public Grid[][] getGrids(){
 		return grids;
@@ -95,6 +106,24 @@ public class Board {
 		
 	public Grid getBlank() {
 		return blank;
+	}
+	
+	//Print Methods
+	public void printPieces() {
+		for(int i = 0; i < 8; i++)
+			System.out.print(pieces.get(i) + " ");
+		System.out.println();
+	}
+	
+	public void printGrids() {
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+				System.out.print(grids[i][j] + " ");
+			}
+			System.out.println();
+		} 
+	
+		System.out.println();
 	}
 	
 	//Draws
