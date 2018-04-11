@@ -2,17 +2,22 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
+//import javax.swing.ImageIcon;
 
-public class Board {
+public class Board /*implements Drawable*/{
 	
 	//Variables
+	//private ImageIcon board;
 	private Grid[][] grids;
+	private Grid blank;
 	private ArrayList<Integer> nums;
 	private ArrayList<Piece> pieces;	
 	
 	//Constructor
 	public Board()
 	{
+		//board = new ImageIcon("src/board.png");
+		
 		grids = new Grid[3][3];
 		initializeGrids();
 		
@@ -24,6 +29,7 @@ public class Board {
     	initializePieces();  
     	
     	assignPiecesToGrids();
+    	setBlankGrid();
 	}
 	
 	//Initializers
@@ -65,6 +71,10 @@ public class Board {
 		return grids[x][y];
 	}
 	
+	public Grid getBlankGrid() {
+		return blank;
+	}
+	
 	//Calculations
 	public int calcBoardCost() {
     	int cost = 0;
@@ -81,7 +91,47 @@ public class Board {
     	return cost;
     }
 	
+	//Move Grids
+	public void setBlankGrid() {
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+				if(grids[i][j].getValue() == 0)
+					blank =  grids[i][j];
+			} 
+		}
+	}
+	
+	public void moveRight() {
+		Grid mover = getGrid(blank.getX()-1, blank.getY());
+		exchangeGrids(mover, blank);
+	}
+	
+	public void moveLeft() {
+		Grid mover = getGrid(blank.getX()+1, blank.getY());
+		exchangeGrids(mover, blank);
+	}
+	
+	public void moveUp() {
+		Grid mover = getGrid(blank.getX(), blank.getY()+1);
+		exchangeGrids(mover, blank);
+	}
+	
+	public void moveDown() {
+		Grid mover = getGrid(blank.getX(), blank.getY()-1);
+		exchangeGrids(mover, blank);
+	}
+	
+	public void exchangeGrids(Grid a, Grid b) {
+		a.setXandY(b.getX(), b.getY());
+		b.setXandY(a.getX(), a.getY());
+	}
+	
 	//Draws
+	/*@Override
+	public void draw(Component c, Graphics g) {
+		board.paintIcon(c, g, 0, 0);
+	}*/
+		
 	public void drawAllGrids(Component c, Graphics g){
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {

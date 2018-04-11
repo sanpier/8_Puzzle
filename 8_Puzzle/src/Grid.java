@@ -31,7 +31,9 @@ public class Grid implements Drawable{
 	}	
 	
 	public int getValue() {
-		return value.getValue();
+		if(value != null)
+			return value.getValue();
+		return 0;
 	}
 	
 	public ImageIcon getImage() {
@@ -43,6 +45,11 @@ public class Grid implements Drawable{
 		value = val;
 	}
 	
+	public void setXandY(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	// Functions
 	public int calcOneGridCost() { // Heuristic Function *
 		if(value != null) {
@@ -50,7 +57,7 @@ public class Grid implements Drawable{
 			int solY = (int) Math.floor(getValue() / 3);
 
 			// System.out.print(number + " cost: " + (Math.abs(x - solX) + Math.abs(y - solY)) + " " );
-			return Math.abs(getX() - solX) + Math.abs(getY() - solY);
+			return Math.abs(x - solX) + Math.abs(y - solY);
 		}
 		return 0;
 	}
@@ -59,6 +66,6 @@ public class Grid implements Drawable{
 	@Override
 	public void draw(Component c, Graphics g) {
 		if(value != null)
-			getImage().paintIcon(c, g, getX() * 121 + 10, getY() * 121 + 10);
+			getImage().paintIcon(c, g, x*121 + 10, y*121 + 10);
 	}
 }
