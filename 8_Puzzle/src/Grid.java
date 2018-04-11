@@ -55,11 +55,4 @@ public class Grid{
 		}
 		return 0;
 	}
-	
-	// Draw
-	/*@Override
-	public void draw(Component c, Graphics g) {
-		if(value != 0)
-			getImage().paintIcon(c, g, x*121 + 10, y*121 + 10);
-	}*/
 }

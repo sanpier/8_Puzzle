@@ -6,7 +6,7 @@ public class MainPanel extends JPanel{
 
 	//Properties
 	JFrame frame;
-	Logic board;
+	Logic logic;
 				
 	//JButtons
 	JButton right, left, up, down;
@@ -66,7 +66,7 @@ public class MainPanel extends JPanel{
     	add(down);
     			
     	//Board
-    	board = given;    	
+    	logic = given;    	
     }
     
     //Paint
@@ -74,7 +74,7 @@ public class MainPanel extends JPanel{
 	{
 		super.paintComponent(g);//Default (must)	
 		//board.draw(this, g);		
-		board.drawAllGrids(this, g);
+		logic.getBoard().drawAllPieces(this, g);
 	}
     
     //Listeners
@@ -87,13 +87,13 @@ public class MainPanel extends JPanel{
 				Object current = event.getSource();
 							
 				if(current == right)
-					board.moveRight();
+					logic.moveRight();
 				else if(current == left)
-					board.moveLeft();
+					logic.moveLeft();
 				else if(current == up)
-					board.moveUp();
+					logic.moveUp();
 				else if(current == down)
-					board.moveDown();
+					logic.moveDown();
 				
 				repaint();
 			}
@@ -107,7 +107,7 @@ public class MainPanel extends JPanel{
     //Functions
     public Logic getLogic()
     {
-		return board;
+		return logic;
 	}
 	
     public void exit()//dispose() method exit from frame

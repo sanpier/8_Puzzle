@@ -7,72 +7,17 @@ import java.util.Random;
 public class Logic{
 	
 	//Variables
-	//private ImageIcon board;
-	private Grid[][] grids;
-	private Grid blank;
-	private ArrayList<Integer> nums;
-	private ArrayList<Piece> pieces;	
+	private Board board;
 	
 	//Constructor
 	public Logic()
 	{
-		//board = new ImageIcon("src/board.png");
-		
-		grids = new Grid[3][3];
-		initializeGrids();
-		
-		nums = new ArrayList<Integer>();
-		for(int i = 1; i <= 8; i++)
-			nums.add(i);
-				
-		pieces = new ArrayList<Piece>();
-    	initializePieces();  
-    	
-    	assignPiecesToGrids();
-    	setBlankGrid();
+		board = new Board();
 	}
 	
-	//Initializers
-	public void initializeGrids() {		
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 3; j++) {
-				grids[i][j] = new Grid(i,j);
-			} 
-		}
-	}
-	
-	public void initializePieces() {
-		Piece newOne;
-		for(int i = 1; i <= 8; i++) {
-			newOne = new Piece(i);
-			pieces.add(newOne);
-		}			
-	}
-	
-	public void assignPiecesToGrids() {
-		Random generator = new Random();
-		int randIndex;
-		int randNum;
-		
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 3; j++) {
-				if(i!=2 || j!=2) {
-			    	randIndex = generator.nextInt(nums.size());
-			    	randNum = nums.get(randIndex);
-			    	nums.remove(randIndex);
-			    	grids[i][j].setValue(pieces.get(randNum-1));
-				}				
-			} 
-		}
-	}
-	
-	//Getters
-	public Grid getGrid(int x, int y) {
-		return grids[x][y];
-	}
-	
-	public Grid getBlankGrid() {
-		return blank;
+	//Getter
+	public Board getBoard() {
+		return board;
 	}
 	
 	//Calculations
@@ -80,7 +25,7 @@ public class Logic{
     	int cost = 0;
     	for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
-	    		cost = cost + grids[i][j].calcOneGridCost();
+	    		cost = cost + board.getGrid(i,j).calcOneGridCost();
 			}				
 		} 
     	
@@ -91,54 +36,31 @@ public class Logic{
     	return cost;
     }
 	
-	//Move Grids
-	public void setBlankGrid() {
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 3; j++) {
-				if(grids[i][j].getValue() == 0)
-					blank =  grids[i][j];
-			} 
-		}
-	}
-	
+	//Move Grids	
 	public void moveRight() {
-		Grid mover = getGrid(blank.getX()-1, blank.getY());
-		exchangeGrids(mover, blank);
+		Grid mover = board.getGrid(board.getBlank().getX()-1, board.getBlank().getY());
+		exchangeGrids(mover, board.getBlank());
 	}
 	
 	public void moveLeft() {
-		Grid mover = getGrid(blank.getX()+1, blank.getY());
-		exchangeGrids(mover, blank);
+		Grid mover = board.getGrid(board.getBlank().getX()+1, board.getBlank().getY());
+		exchangeGrids(mover, board.getBlank());
 	}
 	
 	public void moveUp() {
-		Grid mover = getGrid(blank.getX(), blank.getY()+1);
-		exchangeGrids(mover, blank);
+		Grid mover = board.getGrid(board.getBlank().getX(), board.getBlank().getY()+1);
+		exchangeGrids(mover, board.getBlank());
 	}
 	
 	public void moveDown() {
-		Grid mover = getGrid(blank.getX(), blank.getY()-1);
-		exchangeGrids(mover, blank);
+		Grid mover = board.getGrid(board.getBlank().getX(), board.getBlank().getY()-1);
+		exchangeGrids(mover, board.getBlank());
 	}
 	
 	public void exchangeGrids(Grid a, Grid b) {
 		a.setXandY(b.getX(), b.getY());
 		b.setXandY(a.getX(), a.getY());
 		
-		setBlankGrid();
-	}
-	
-	//Draws
-	/*@Override
-	public void draw(Component c, Graphics g) {
-		board.paintIcon(c, g, 0, 0);
-	}*/
-		
-	public void drawAllGrids(Component c, Graphics g){
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 3; j++) {
-				grids[i][j].draw(c, g);	
-			}				
-		} 					
+		board.setBlankGrid();
 	}
 }
