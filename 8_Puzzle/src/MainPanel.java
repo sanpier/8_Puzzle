@@ -13,6 +13,9 @@ public class MainPanel extends JPanel{
 	
 	//Constructor
     public MainPanel(Logic given) {
+
+    	//Logic
+    	logic = given; 
     	
     	//Panel Constructured
 		setLayout(null);
@@ -55,30 +58,32 @@ public class MainPanel extends JPanel{
     	
     	solve = new JButton("Solve");
     	solve.setSize(new Dimension(80,40));
-    	solve.setLocation(100,402);
+    	solve.setLocation(100,392);
     	solve.setFont(new Font("Monotype Corsiva", Font.PLAIN, 18));
     	solve.setBackground(new Color(238,232,170));
     	
     	exit = new JButton("Exit");
     	exit.setSize(new Dimension(80,40));
-    	exit.setLocation(200,402);
+    	exit.setLocation(210,392);
     	exit.setFont(new Font("Monotype Corsiva", Font.PLAIN, 18));
     	exit.setBackground(new Color(238,232,170));
     	
     	//Add listener to buttons
-    	right.addActionListener(new ButtonListener());
-    	left.addActionListener(new ButtonListener());
-    	up.addActionListener(new ButtonListener());
-    	down.addActionListener(new ButtonListener());
+    	ButtonListener listener = new ButtonListener();
+    	right.addActionListener(listener);
+    	left.addActionListener(listener);
+    	up.addActionListener(listener);
+    	down.addActionListener(listener);
+    	solve.addActionListener(listener);
+    	exit.addActionListener(listener);
     			
     	//Add components in panel
     	add(right);
     	add(left);
     	add(up);
     	add(down);
-    			
-    	//Board
-    	logic = given;    	
+    	add(solve);
+    	add(exit);   	
     }
     
     //Paint

@@ -6,8 +6,8 @@ import java.util.Random;
 public class Board implements Drawable{
 	
 	//Variables
-	private Grid[][] grids;
-	private Grid blank;
+	private static Grid[][] grids;
+	private static Grid blank;
 	private Icons icons;
 	private ArrayList<Integer> nums;
 	
@@ -15,6 +15,7 @@ public class Board implements Drawable{
 	public Board()
 	{
 		grids = new Grid[3][3];
+		blank = new Grid();
 		initializeGrids();
 				    
 		nums = new ArrayList<Integer>();
@@ -62,7 +63,7 @@ public class Board implements Drawable{
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
 				if(grids[i][j].getValue() == 0)
-					blank =  grids[i][j];
+					blank = grids[i][j];
 			} 
 		}
 	}
@@ -136,6 +137,7 @@ public class Board implements Drawable{
 	public void drawAllPieces(Component c, Graphics g){
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
+				grids[i][j].printGrid();
 				draw(c, g, grids[i][j].getValue(), i, j);
 			}
 		}				

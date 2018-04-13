@@ -4,6 +4,12 @@ public class Grid{
 	private int x, y, value;
 	
 	// Constructors
+	public Grid() {
+		x = 0;
+		y = 0;
+		value = 0;
+	}
+	
 	public Grid(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -38,5 +44,9 @@ public class Grid{
 			return Math.abs(x - solX) + Math.abs(y - solY);
 		}
 		return 0;
+	}
+	
+	public void printGrid() {
+		System.out.println(value + ": x=" + x + " y=" + y);
 	}
 }
