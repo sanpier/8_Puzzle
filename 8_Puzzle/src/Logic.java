@@ -1,3 +1,6 @@
+import java.awt.Component;
+import java.awt.Graphics;
+
 public class Logic{
 	
 	//Variables
@@ -42,5 +45,9 @@ public class Logic{
 		board.down();
 		board.printGrids();
 		board.calcBoardCost();
+	}
+	
+	public void draw(Component c, Graphics g) {
+		board.drawAllPieces(c,g);
 	}
 }

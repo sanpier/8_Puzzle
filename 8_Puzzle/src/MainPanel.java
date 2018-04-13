@@ -85,8 +85,7 @@ public class MainPanel extends JPanel{
     public void paintComponent(Graphics g)//Drawing cards
 	{
 		super.paintComponent(g);//Default (must)	
-		//board.draw(this, g);		
-		logic.getBoard().drawAllPieces(this, g);
+		logic.draw(this, g);
 	}
     
     //Listeners
