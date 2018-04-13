@@ -9,7 +9,7 @@ public class MainPanel extends JPanel{
 	Logic logic;
 				
 	//JButtons
-	JButton right, left, up, down;
+	JButton right, left, up, down, solve, exit;
 	
 	//Constructor
     public MainPanel(Logic given) {
@@ -53,6 +53,18 @@ public class MainPanel extends JPanel{
     	down.setFont(new Font("Monotype Corsiva", Font.PLAIN, 18));
     	down.setBackground(new Color(238,232,170));
     	
+    	solve = new JButton("Solve");
+    	solve.setSize(new Dimension(80,40));
+    	solve.setLocation(100,402);
+    	solve.setFont(new Font("Monotype Corsiva", Font.PLAIN, 18));
+    	solve.setBackground(new Color(238,232,170));
+    	
+    	exit = new JButton("Exit");
+    	exit.setSize(new Dimension(80,40));
+    	exit.setLocation(200,402);
+    	exit.setFont(new Font("Monotype Corsiva", Font.PLAIN, 18));
+    	exit.setBackground(new Color(238,232,170));
+    	
     	//Add listener to buttons
     	right.addActionListener(new ButtonListener());
     	left.addActionListener(new ButtonListener());
@@ -94,6 +106,10 @@ public class MainPanel extends JPanel{
 					logic.moveUp();
 				else if(current == down)
 					logic.moveDown();
+				else if(current == solve)
+					logic.solvePuzzle();
+				else if(current == exit)
+					exit();
 				
 				repaint();
 			}

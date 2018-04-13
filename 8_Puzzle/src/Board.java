@@ -46,11 +46,8 @@ public class Board {
 	    		cost = cost + grids[i][j].calcOneGridCost();
 			}				
 		} 
-		
-		/*
-		System.out.println();
-		System.out.println("Cost is: " + cost);
-		*/    	
+				
+		System.out.println("Cost is: " + cost);			
 		return cost;
 	}
 	
