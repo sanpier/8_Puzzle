@@ -81,32 +81,52 @@ public class Board implements Drawable{
 	}
 	
 	//Move Grids
-	public void right() {
-		int value = grids[blank.getX()-1][blank.getY()].getValue();	
-		grids[blank.getX()-1][blank.getY()].setValue(blank.getValue());
-		blank.setValue(value);
-		setBlankGrid();
+	public int right() {
+		if(blank.getX() != 0) {
+			int value = grids[blank.getX()-1][blank.getY()].getValue();	
+			grids[blank.getX()-1][blank.getY()].setValue(blank.getValue());
+			blank.setValue(value);
+			setBlankGrid();
+			return 1;
+		}
+		else
+			return -1;
 	}
 	
-	public void left() {
-		int value = grids[blank.getX()+1][blank.getY()].getValue();	
-		grids[blank.getX()+1][blank.getY()].setValue(blank.getValue());
-		blank.setValue(value);
-		setBlankGrid();
+	public int left() {
+		if(blank.getX() != 2) {
+			int value = grids[blank.getX()+1][blank.getY()].getValue();	
+			grids[blank.getX()+1][blank.getY()].setValue(blank.getValue());
+			blank.setValue(value);
+			setBlankGrid();
+			return 1;
+		}
+		else
+			return -1;
 	}
 	
-	public void up() {
-		int value = grids[blank.getX()][blank.getY()+1].getValue();	
-		grids[blank.getX()][blank.getY()+1].setValue(blank.getValue());
-		blank.setValue(value);
-		setBlankGrid();
+	public int up() {
+		if(blank.getY() != 2) {
+			int value = grids[blank.getX()][blank.getY()+1].getValue();	
+			grids[blank.getX()][blank.getY()+1].setValue(blank.getValue());
+			blank.setValue(value);
+			setBlankGrid();
+			return 1;
+		}
+		else
+			return -1;
 	}
 	
-	public void down() {
-		int value = grids[blank.getX()][blank.getY()-1].getValue();	
-		grids[blank.getX()][blank.getY()-1].setValue(blank.getValue());
-		blank.setValue(value);
-		setBlankGrid();
+	public int down() {
+		if(blank.getY() != 0) {
+			int value = grids[blank.getX()][blank.getY()-1].getValue();	
+			grids[blank.getX()][blank.getY()-1].setValue(blank.getValue());
+			blank.setValue(value);
+			setBlankGrid();
+			return 1;
+		}
+		else
+			return -1;
 	}
 		
 	//Getters
@@ -137,7 +157,7 @@ public class Board implements Drawable{
 	public void drawAllPieces(Component c, Graphics g){
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
-				grids[i][j].printGrid();
+				//grids[i][j].printGrid();
 				draw(c, g, grids[i][j].getValue(), i, j);
 			}
 		}				
