@@ -76,11 +76,11 @@ public class Board implements Drawable{
 			}				
 		} 
 				
-		System.out.println("Cost is: " + cost);			
+		//System.out.println("Cost is: " + cost);			
 		return cost;
 	}
 	
-	//Move Grids
+	//Move Grids: return 1 if possible
 	public int right() {
 		if(blank.getX() != 0) {
 			int value = grids[blank.getX()-1][blank.getY()].getValue();	
