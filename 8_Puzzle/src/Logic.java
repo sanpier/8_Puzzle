@@ -6,6 +6,7 @@ public class Logic{
 	//Variables
 	//private MainPanel panel;
 	private Board board;
+	private Tree tree;
 	int currentCost, leftCost, rightCost, upCost, downCost;
 	int min, minx, miny, xdirection, ydirection, lastDirection;
 	
@@ -14,6 +15,7 @@ public class Logic{
 	{
 		//this.panel = panel;
 		board = new Board();
+		tree = new Tree(new Node(board.getGrids(), board.calcBoardCost()));
 		min = 100;
 		lastDirection = 0;
 	}
@@ -25,6 +27,10 @@ public class Logic{
 	
 	//Heuristic Functions
 	public void solvePuzzle() {
+		
+	}
+	
+	/*public void solvePuzzle() {
 		int maxStep = 250;
 		while(min != 0 && maxStep != 0) {
 			lookLeastCost();
@@ -43,7 +49,7 @@ public class Logic{
 		    /*Thread.sleep(300);	
 		    draw(panel, panel.getGraphics());		
 		    panel.repaint();*/
-		}
+		/*}
 		catch(Exception e) {
 			System.out.println("Exception is catched");
 		}
@@ -128,7 +134,7 @@ public class Logic{
 			min = miny;
 			return ydirection;
 		}
-	}
+	}*/
 	
 	//Move Grids	
 	public void moveRight() {

@@ -41,6 +41,19 @@ public class Board implements Drawable{
 			nums.add(i);
 	}
 	
+	//Getters
+	public Grid[][] getGrids(){
+		return grids;
+	}
+			
+	public Grid getGrid(int x, int y) {
+		return grids[x][y];
+	}
+			
+	public Grid getBlank() {
+		return blank;
+	}
+		
 	//Other Functions
 	public void assignValues() {
 		Random generator = new Random();
@@ -128,20 +141,7 @@ public class Board implements Drawable{
 		else
 			return -1;
 	}
-		
-	//Getters
-	public Grid[][] getGrids(){
-		return grids;
-	}
-		
-	public Grid getGrid(int x, int y) {
-		return grids[x][y];
-	}
-		
-	public Grid getBlank() {
-		return blank;
-	}
-	
+			
 	//Print Methods	
 	public void printGrids() {
 		for(int i = 0; i < 3; i++) {
