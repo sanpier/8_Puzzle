@@ -4,15 +4,15 @@ import java.awt.Graphics;
 public class Logic{
 	
 	//Variables
-	private MainPanel panel;
+	//private MainPanel panel;
 	private Board board;
 	int currentCost, leftCost, rightCost, upCost, downCost;
 	int min, minx, miny, xdirection, ydirection, lastDirection;
 	
 	//Constructor
-	public Logic(MainPanel panel)
+	public Logic()
 	{
-		this.panel = panel;
+		//this.panel = panel;
 		board = new Board();
 		min = 100;
 		lastDirection = 0;
@@ -40,9 +40,9 @@ public class Logic{
 	
 	public void lookLeastCost() {
 		try {
-		    Thread.sleep(300);	
+		    /*Thread.sleep(300);	
 		    draw(panel, panel.getGraphics());		
-		    panel.repaint();
+		    panel.repaint();*/
 		}
 		catch(Exception e) {
 			System.out.println("Exception is catched");
