@@ -4,14 +4,16 @@ import java.awt.Graphics;
 public class Logic{
 	
 	//Variables
+	MainPanel panel;
 	private Board board;
 	int currentCost, leftCost, rightCost, upCost, downCost;
 	int min, minx, miny, xdirection, ydirection, lastDirection;
 	
 	//Constructor
-	public Logic()
+	public Logic(MainPanel panel)
 	{
 		board = new Board();
+		this.panel = panel;
 		min = 100;
 		lastDirection = 0;
 	}
@@ -37,6 +39,16 @@ public class Logic{
 	}
 	
 	public void lookLeastCost() {
+		try {
+			//TimeUnit.SECONDS.sleep(1);
+		    Thread.sleep(300);	
+		    draw(panel, panel.getGraphics());		
+		    panel.repaint();
+		}
+		catch(Exception e) {
+			System.out.println("Exception is catched");
+		}
+		
 		currentCost = board.calcBoardCost();
 		
 		//Cost of each direction if previous direction is not opposite of it
