@@ -4,7 +4,7 @@ import java.awt.Graphics;
 public class Logic{
 	
 	//Variables
-	MainPanel panel;
+	private MainPanel panel;
 	private Board board;
 	int currentCost, leftCost, rightCost, upCost, downCost;
 	int min, minx, miny, xdirection, ydirection, lastDirection;
@@ -12,8 +12,8 @@ public class Logic{
 	//Constructor
 	public Logic(MainPanel panel)
 	{
-		board = new Board();
 		this.panel = panel;
+		board = new Board();
 		min = 100;
 		lastDirection = 0;
 	}
@@ -40,7 +40,6 @@ public class Logic{
 	
 	public void lookLeastCost() {
 		try {
-			//TimeUnit.SECONDS.sleep(1);
 		    Thread.sleep(300);	
 		    draw(panel, panel.getGraphics());		
 		    panel.repaint();
