@@ -6,6 +6,7 @@ public class Logic{
 	//Variables
 	//private MainPanel panel;
 	private Board board;
+	private Node root, left, right, up, down;
 	private Tree tree;
 	int currentCost, leftCost, rightCost, upCost, downCost;
 	int min, minx, miny, xdirection, ydirection, lastDirection;
@@ -15,7 +16,18 @@ public class Logic{
 	{
 		//this.panel = panel;
 		board = new Board();
-		tree = new Tree(new Node(board.getGrids(), board.calcBoardCost()));
+		
+		//Nodes
+		root = board.getActiveNode();
+		left = new Node();
+		right = new Node();
+		down = new Node();
+		up = new Node();
+		
+		//Tree
+		tree = new Tree(root);
+		
+		//Others
 		min = 100;
 		lastDirection = 0;
 	}
@@ -23,6 +35,49 @@ public class Logic{
 	//Getter
 	public Board getBoard() {
 		return board;
+	}
+	
+	//Nodes
+	public void setNodes() {
+		if(lastDirection != 2 && board.left() == 1) {
+			left.setConfiguration(board.getGrids());	
+			left.setCost(board.calcBoardCost());
+			board.right();
+		}
+		else
+			left.setCost(-1);
+		if(lastDirection != 1 && board.right() == 1) {
+			right.setConfiguration(board.getGrids());	
+			right.setCost(board.calcBoardCost());
+			board.left();
+		}
+		else
+			right.setCost(-1);
+		if(lastDirection != 3 && board.up() == 1) {
+			up.setConfiguration(board.getGrids());	
+			up.setCost(board.calcBoardCost());
+			board.down();
+		}
+		else
+			up.setCost(-1);
+		if(lastDirection != 4 && board.down() == 1) {
+			down.setConfiguration(board.getGrids());	
+			down.setCost(board.calcBoardCost());
+			board.up();
+		}
+		else
+			down.setCost(-1);
+	}
+	
+	public void addNodesToTree() {
+		if(left.getCost() != -1)
+			tree.addNode(left);
+		if(right.getCost() != -1)
+			tree.addNode(right);
+		if(up.getCost() != -1)
+			tree.addNode(up);
+		if(down.getCost() != -1)
+			tree.addNode(down);
 	}
 	
 	//Heuristic Functions

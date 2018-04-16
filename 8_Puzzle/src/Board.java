@@ -6,6 +6,7 @@ import java.util.Random;
 public class Board implements Drawable{
 	
 	//Variables
+	private static Node activeNode;
 	private static Grid[][] grids;
 	private static Grid blank;
 	private Icons icons;
@@ -25,6 +26,7 @@ public class Board implements Drawable{
 		
 		assignValues();
 	   	setBlankGrid();
+	   	setActiveNode();
 	}
 	
 	//Initializers
@@ -53,7 +55,11 @@ public class Board implements Drawable{
 	public Grid getBlank() {
 		return blank;
 	}
-		
+	
+	public Node getActiveNode() {
+		return activeNode;
+	}	
+	
 	//Other Functions
 	public void assignValues() {
 		Random generator = new Random();
@@ -80,6 +86,10 @@ public class Board implements Drawable{
 			} 
 		}
 	}
+
+	public void setActiveNode() {
+		activeNode = new Node(getGrids(), calcBoardCost());
+	}	
 	
 	public int calcBoardCost() {
 		int cost = 0;
