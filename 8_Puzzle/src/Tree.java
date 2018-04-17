@@ -4,13 +4,15 @@ public class Tree {
 	
 	// Variables
 	private ArrayList<Node> leaves;
-	private Node minOne;
+	private Node exploreNode, left, right, down, up;
+	int lastDirection;
 		
 	// Constructors
 	public Tree(Node root) {
 		leaves = new ArrayList<Node>();
 		leaves.add(root);
-		setMinNode();
+		exploreNode = root;
+		lastDirection = 0;
 	}
 			
 	// Getters
@@ -22,8 +24,8 @@ public class Tree {
 		return leaves.get(i).getCost();
 	}
 	
-	public Node getMinNode() {
-		return minOne;
+	public Node getExploreNode() {
+		return exploreNode;
 	}
 	
 	//Tree functions
@@ -35,11 +37,31 @@ public class Tree {
 		leaves.add(newOne);
 	}
 	
-	public void setMinNode() {		
-		minOne = leaves.get(0);
-	}
-	
-	public void removeMinNode() {		
-		leaves.remove(0);
+	public void exploreNode()
+	{
+		if(lastDirection != 2 && exploreNode.left() == 1) {
+			left.setConfiguration(exploreNode.getConfiguration());
+			exploreNode.right();
+		}
+		else
+			left.setCost(-1);
+		if(lastDirection != 1 && exploreNode.right() == 1) {
+			right.setConfiguration(exploreNode.getConfiguration());	
+			exploreNode.left();
+		}
+		else
+			right.setCost(-1);
+		if(lastDirection != 3 && exploreNode.up() == 1) {
+			up.setConfiguration(exploreNode.getConfiguration());	
+			exploreNode.down();
+		}
+		else
+			up.setCost(-1);
+		if(lastDirection != 4 && exploreNode.down() == 1) {
+			down.setConfiguration(exploreNode.getConfiguration());	
+			exploreNode.up();
+		}
+		else
+			down.setCost(-1);
 	}
 }
