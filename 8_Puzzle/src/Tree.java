@@ -13,8 +13,7 @@ public class Tree {
 		
 		//Nodes
 		exploreNode = new Node(false);
-		exploreNode.setConfiguration(root.getConfiguration());
-		exploreNode.setBlank();
+		exploreNode.setNode(root.getConfiguration());
 		/*System.out.println("Explore node in tree:");
 		exploreNode.printGrids();*/
 		
@@ -46,7 +45,6 @@ public class Tree {
 		leaves.add(newOne);
 		System.out.println("Following node is added to tree:");
 		newOne.printGrids();
-		printTree();
 	}
 		
 	public void setExploredOne() {		// Remove explored one and set new one
@@ -58,12 +56,16 @@ public class Tree {
 				minIndex = i;				
 			}
 		}		
-		exploreNode.setConfiguration(leaves.get(minIndex).getConfiguration());
-		exploreNode.setBlank();
+
+		//Print min node
+		/*System.out.println("Min cost node in the tree:");
+		leaves.get(minIndex).printGrids();*/
+		
+		exploreNode.setNode(leaves.get(minIndex).getConfiguration());
 		leaves.remove(minIndex);
 		
 		//Print explore node
-		System.out.println("Explore node is:");
+		System.out.println("Explore node is set to:");
 		exploreNode.printGrids();
 		
 		//Tree after explore node is set
@@ -76,8 +78,8 @@ public class Tree {
 		System.out.println("Exploring:");
 		//Add nodes
 		if(lastAction != 2 && exploreNode.left() == 1) {	// Left
-			left.setConfiguration(exploreNode.getConfiguration());		
-			left.setBlank();	
+			left.setNode(exploreNode.getConfiguration());
+			
 			System.out.println("Left action is possible");
 			addNode(left);
 			
@@ -89,8 +91,8 @@ public class Tree {
 		else
 			left.setCost(-1);
 		if(lastAction != 1 && exploreNode.right() == 1) {	// Right
-			right.setConfiguration(exploreNode.getConfiguration());
-			right.setBlank();	
+			right.setNode(exploreNode.getConfiguration());
+			
 			System.out.println("Right action is possible");
 			addNode(right);
 			
@@ -102,8 +104,8 @@ public class Tree {
 		else
 			right.setCost(-1);
 		if(lastAction != 3 && exploreNode.up() == 1) {		// Up
-			up.setConfiguration(exploreNode.getConfiguration());
-			up.setBlank();	
+			up.setNode(exploreNode.getConfiguration());
+			
 			System.out.println("Up action is possible");
 			addNode(up);
 			
@@ -115,8 +117,8 @@ public class Tree {
 		else
 			up.setCost(-1);
 		if(lastAction != 4 && exploreNode.down() == 1) {	// Down
-			down.setConfiguration(exploreNode.getConfiguration());	
-			down.setBlank();
+			down.setNode(exploreNode.getConfiguration());	
+			
 			System.out.println("Down action is possible");
 			addNode(down);
 			
@@ -129,6 +131,7 @@ public class Tree {
 			down.setCost(-1);
 		
 		//Set new explored node
+		printTree();
 		setExploredOne();
 	}
 	

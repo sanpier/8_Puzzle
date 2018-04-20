@@ -21,8 +21,7 @@ public class Node {
 	}
 	
 	public Node(Grid[][] configuration) {
-		setConfiguration(configuration);
-		setBlank();
+		setNode(configuration);
 	}
 	
 	//Initializer
@@ -48,13 +47,19 @@ public class Node {
 	}
 	
 	// Setters
-	public void setConfiguration(Grid[][] grids) {
-		configuration = grids;
+	public void setNode(Grid[][] grids) {
+		setConfiguration(grids);
 		boardCost();
+		setBlank();
 	}
-
-	public void setCost(int cost) {
-		this.cost = cost;
+	
+	public void setConfiguration(Grid[][] grids) {
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+	    		configuration[i][j].setValue(grids[i][j].getValue());
+    			configuration[i][j].setXandY(i,j);		    		
+			}				
+		} 	
 	}
 	
 	public void setBlank() {
@@ -75,6 +80,11 @@ public class Node {
 		} 			
 	}
 	
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+			
+	//Initial Configuration
 	public void setInitialRandomConfiguration() {
 		ArrayList<Integer> nums = new ArrayList<Integer>();
 		for(int i = 1; i<= 8; i++) 
@@ -119,7 +129,7 @@ public class Node {
 		if(blank.getX() != 0) {
 			int value = configuration[blank.getX()-1][blank.getY()].getValue();	
 			configuration[blank.getX()-1][blank.getY()].setValue(blank.getValue());
-			blank.setValue(value);
+			configuration[blank.getX()][blank.getY()].setValue(value);
 			setBlank();
 			boardCost();
 			return 1;
@@ -132,7 +142,7 @@ public class Node {
 		if(blank.getX() != 2) {
 			int value = configuration[blank.getX()+1][blank.getY()].getValue();	
 			configuration[blank.getX()+1][blank.getY()].setValue(blank.getValue());
-			blank.setValue(value);
+			configuration[blank.getX()][blank.getY()].setValue(value);
 			setBlank();
 			boardCost();
 			return 1;
@@ -145,7 +155,7 @@ public class Node {
 		if(blank.getY() != 2) {
 			int value = configuration[blank.getX()][blank.getY()+1].getValue();	
 			configuration[blank.getX()][blank.getY()+1].setValue(blank.getValue());
-			blank.setValue(value);
+			configuration[blank.getX()][blank.getY()].setValue(value);
 			setBlank();
 			boardCost();
 			return 1;
@@ -158,7 +168,7 @@ public class Node {
 		if(blank.getY() != 0) {
 			int value = configuration[blank.getX()][blank.getY()-1].getValue();	
 			configuration[blank.getX()][blank.getY()-1].setValue(blank.getValue());
-			blank.setValue(value);
+			configuration[blank.getX()][blank.getY()].setValue(value);
 			setBlank();
 			boardCost();
 			return 1;
