@@ -5,14 +5,27 @@ public class Tree {
 	// Variables
 	private ArrayList<Node> leaves;
 	private Node exploreNode, left, right, down, up;
-	int lastDirection;
+	int lastAction;
 		
 	// Constructors
-	public Tree(Node root) {
+	public Tree(Node root) {		
 		leaves = new ArrayList<Node>();
-		leaves.add(root);
-		exploreNode = root;
-		lastDirection = 0;
+		
+		//Nodes
+		exploreNode = new Node(false);
+		exploreNode.setConfiguration(root.getConfiguration());
+		exploreNode.setBlank();
+		/*System.out.println("Explore node in tree:");
+		exploreNode.printGrids();*/
+		
+		left = new Node(false);
+		right = new Node(false);
+		down = new Node(false);
+		up = new Node(false);		
+		
+		//Set tree
+		explore();
+		lastAction = 0;
 	}
 			
 	// Getters
@@ -24,44 +37,107 @@ public class Tree {
 		return leaves.get(i).getCost();
 	}
 	
-	public Node getExploreNode() {
-		return exploreNode;
+	public int getExploreNodeCost() {
+		return exploreNode.getCost();
 	}
 	
 	//Tree functions
 	public void addNode(Node newOne) {
-		for(int i = 1; i < leaves.size(); i++) {
-			if(newOne.getCost() <= getCostOfNode(i))
-				leaves.add(i, newOne);
-		}	
 		leaves.add(newOne);
+		System.out.println("Following node is added to tree:");
+		newOne.printGrids();
+		printTree();
+	}
+		
+	public void setExploredOne() {		// Remove explored one and set new one
+		int minIndex = 0;
+		int minCost = 500;
+		for(int i = 0; i < leaves.size(); i++) {
+			if(getCostOfNode(i) <= minCost) {
+				minCost = getCostOfNode(i);
+				minIndex = i;				
+			}
+		}		
+		exploreNode.setConfiguration(leaves.get(minIndex).getConfiguration());
+		exploreNode.setBlank();
+		leaves.remove(minIndex);
+		
+		//Print explore node
+		System.out.println("Explore node is:");
+		exploreNode.printGrids();
+		
+		//Tree after explore node is set
+		System.out.println("Explore node is set and removed from tree!");
+		printTree();
 	}
 	
-	public void exploreNode()
-	{
-		if(lastDirection != 2 && exploreNode.left() == 1) {
-			left.setConfiguration(exploreNode.getConfiguration());
-			exploreNode.right();
+	public void explore()				// Add all possible nodes
+	{		
+		System.out.println("Exploring:");
+		//Add nodes
+		if(lastAction != 2 && exploreNode.left() == 1) {	// Left
+			left.setConfiguration(exploreNode.getConfiguration());		
+			left.setBlank();	
+			System.out.println("Left action is possible");
+			addNode(left);
+			
+			//Backtrack
+			exploreNode.right();										
+			/*System.out.println("Left added, explore node backtracked");
+			exploreNode.printGrids();*/
 		}
 		else
 			left.setCost(-1);
-		if(lastDirection != 1 && exploreNode.right() == 1) {
-			right.setConfiguration(exploreNode.getConfiguration());	
+		if(lastAction != 1 && exploreNode.right() == 1) {	// Right
+			right.setConfiguration(exploreNode.getConfiguration());
+			right.setBlank();	
+			System.out.println("Right action is possible");
+			addNode(right);
+			
+			//Backtrack
 			exploreNode.left();
+			/*System.out.println("Right added, explore node backtracked");
+			exploreNode.printGrids();*/
 		}
 		else
 			right.setCost(-1);
-		if(lastDirection != 3 && exploreNode.up() == 1) {
-			up.setConfiguration(exploreNode.getConfiguration());	
+		if(lastAction != 3 && exploreNode.up() == 1) {		// Up
+			up.setConfiguration(exploreNode.getConfiguration());
+			up.setBlank();	
+			System.out.println("Up action is possible");
+			addNode(up);
+			
+			//Backtrack
 			exploreNode.down();
+			/*System.out.println("Up added, explore node backtracked");
+			exploreNode.printGrids();*/
 		}
 		else
 			up.setCost(-1);
-		if(lastDirection != 4 && exploreNode.down() == 1) {
+		if(lastAction != 4 && exploreNode.down() == 1) {	// Down
 			down.setConfiguration(exploreNode.getConfiguration());	
+			down.setBlank();
+			System.out.println("Down action is possible");
+			addNode(down);
+			
+			//Backtrack
 			exploreNode.up();
+			/*System.out.println("Down added, explore node backtracked");
+			exploreNode.printGrids();*/
 		}
 		else
 			down.setCost(-1);
+		
+		//Set new explored node
+		setExploredOne();
+	}
+	
+	//Print
+	public void printTree() {
+		System.out.println("Whole tree:");		
+		for(int i = 0; i < leaves.size(); i++) {
+			System.out.println("Node number = " + i);
+			leaves.get(i).printGrids();
+		}		
 	}
 }

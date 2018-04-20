@@ -1,23 +1,39 @@
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Node {
 
 	// Variables
-	private static Grid[][] configuration;
-	private static Grid blank;
+	private Grid[][] configuration;
+	private Grid blank;
 	private int cost;
 	
 	// Constructor
-	public Node() {
-		this.configuration = new Grid[3][3];
-		blank = new Grid();
-		this.cost = -1;
+	public Node(boolean initial) {
+		configuration = new Grid[3][3];
+		initializeGrids();
+		if(initial)
+			setInitialRandomConfiguration();
+		else {
+			blank = new Grid();
+			cost = -1;
+		}
 	}
 	
 	public Node(Grid[][] configuration) {
-		this.configuration = configuration;
+		setConfiguration(configuration);
 		setBlank();
-		boardCost();
 	}
-		
+	
+	//Initializer
+	public void initializeGrids() {
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+				configuration[i][j] = new Grid();
+			}
+		}			
+	}
+	
 	// Getters
 	public Grid[][] getConfiguration() {
 		return configuration;
@@ -51,13 +67,39 @@ public class Node {
 	}
 	
 	public void boardCost() {
-		int c = 0;
+		cost = 0;
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
-	    		c = c + configuration[i][j].calcOneGridCost();
+				cost = cost + configuration[i][j].calcOneGridCost();
 			}				
-		} 				
-		cost = c;
+		} 			
+	}
+	
+	public void setInitialRandomConfiguration() {
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		for(int i = 1; i<= 8; i++) 
+			nums.add(i);
+		
+		Random generator = new Random();
+		int randIndex, randVal;
+		
+		for(int i = 0; i <= 2; i++) {
+			for(int j = 0; j <= 2; j++) {
+				if(i != 2 || j != 2) {
+					randIndex = generator.nextInt(nums.size());
+					randVal = nums.get(randIndex);
+					nums.remove(randIndex);
+					configuration[i][j].setValue(randVal);
+					configuration[i][j].setXandY(i,j);
+				}
+			}
+		}
+		configuration[2][2].setValue(0);
+		configuration[2][2].setXandY(2,2);
+		
+		//printGrids();		
+		boardCost();
+		setBlank();
 	}
 	
 	//Print Methods	
@@ -68,6 +110,7 @@ public class Node {
 			}
 			System.out.println();
 		} 	
+		System.out.println("Cost is: " + cost + "  Blank grid: x=" + blank.getX() + " y=" + blank.getY());
 		System.out.println();
 	}
 	

@@ -7,7 +7,6 @@ public class MainPanel extends JPanel{
 	//Properties
 	JFrame frame;
 	Logic logic;
-	//Graphics g;
 				
 	//JButtons
 	JButton right, left, up, down, solve, exit;
@@ -91,15 +90,9 @@ public class MainPanel extends JPanel{
     public void paintComponent(Graphics g)//Drawing cards
 	{
 		super.paintComponent(g);//Default (must)	
-		//this.g = g;
 		logic.draw(this, g);
 	}
-    
-    //Getter
-    /*public Graphics getGraphics() {
-    	return g;
-    }*/
-    
+        
     //Listeners
     public class ButtonListener implements ActionListener//Inner class, listener for Buttons
 	{

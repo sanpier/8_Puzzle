@@ -8,30 +8,12 @@ public class Board implements Drawable{
 	private Icons icons;
 	
 	//Constructor
-	public Board()
+	public Board(Node given)
 	{
-		activeNode = new Node();				
+		setActiveNode(given);				
 		icons = new Icons();
 	}
-	
-	//Other Functions
-	/*public void assignValues() {
-		Random generator = new Random();
-		int randIndex;
-		int randNum;
-			
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 3; j++) {
-				if(i!=2 || j!=2) {
-			    	randIndex = generator.nextInt(nums.size());
-			    	randNum = nums.get(randIndex);
-			    	nums.remove(randIndex);
-			    	grids[i][j].setValue(randNum);
-				}				
-			} 
-		}
-	}*/
-			
+				
 	//Setter
 	public void setActiveNode(Node given) {
 		activeNode = given;

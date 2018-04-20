@@ -34,6 +34,11 @@ public class Grid{
 		this.value = value;
 	}
 	
+	public void setXandY(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	// Functions
 	public int calcOneGridCost() {
 		if(value > 0) {

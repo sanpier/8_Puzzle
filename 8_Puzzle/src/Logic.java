@@ -4,19 +4,18 @@ import java.awt.Graphics;
 public class Logic{
 	
 	//Variables
-	//private MainPanel panel;
-	private Board board;
-	
 	private Node activeNode;
 	private Tree tree;
-		
+	private Board board;
+			
 	//Constructor
 	public Logic()
-	{
-		//this.panel = panel;
-		board = new Board();
-		
-		activeNode = new Node();
+	{		
+		activeNode = new Node(true);	// Initial random positions
+		System.out.println("Initial random grids:");
+		activeNode.printGrids();
+
+		board = new Board(activeNode);		
 		tree = new Tree(activeNode);
 	}
 	
@@ -24,12 +23,12 @@ public class Logic{
 	public Board getBoard() {
 		return board;
 	}
-			
+	
 	//Heuristic Functions
 	public void solvePuzzle() {
 		int maxStep = 50;
-		while(activeNode.getCost() != 0 && maxStep != 0) {
-			
+		while(tree.getExploreNodeCost() != 0 && maxStep != 0) {
+			tree.explore();
 			maxStep--;
 		}
 	}
@@ -161,6 +160,7 @@ public class Logic{
 		activeNode.printGrids();
 	}
 	
+	//Draw
 	public void draw(Component c, Graphics g) {
 		board.setActiveNode(activeNode);
 		board.drawAllPieces(c,g);
