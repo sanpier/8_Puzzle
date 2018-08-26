@@ -95,15 +95,15 @@ public class Node {
 		return cost;
 	}
 	
-	public double getActualCost() {
-		cost = 0;
+	public int getActualCost() {
+		int actual_cost = 0;
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
-				cost = cost + configuration[i][j].calcOneGridCost();
+				actual_cost = actual_cost + configuration[i][j].calcOneGridCost();
 			}				
 		} 	
 		
-		return cost;
+		return actual_cost;
 	}
 	
 	public ArrayList<String> getActions() {

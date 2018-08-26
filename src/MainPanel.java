@@ -8,11 +8,13 @@ public class MainPanel extends JPanel{
 	JFrame frame;
 	Logic logic;
 	
-	boolean visualizeThreat;
 	boolean solution;
 	
 	Timer timer;
 	int time;
+	
+	String action;
+	int index;
 	
 	//JButtons
 	JButton right, left, up, down, solve, exit;
@@ -85,9 +87,12 @@ public class MainPanel extends JPanel{
     		
     	//Timer
     	TimerListener timeListener = new TimerListener();
-    	timer = new Timer(1500, timeListener);
+    	timer = new Timer(500, timeListener);
     	time = 0;	
-    			
+    	
+    	action = "no";
+    	index = 0;
+    	
     	//Add components in panel
     	add(right);
     	add(left);
@@ -104,18 +109,32 @@ public class MainPanel extends JPanel{
 		logic.draw(this, g);
 		
 		if(solution){
-			for(int i = 0; i <= time; i++){
-				if(logic.getMovement(i).equalsIgnoreCase("left"))
-					logic.moveLeft();
-				else if(logic.getMovement(i).equalsIgnoreCase("right"))
-					logic.moveRight();
-				else if(logic.getMovement(i).equalsIgnoreCase("down"))
-					logic.moveDown();
-				else if(logic.getMovement(i).equalsIgnoreCase("up"))
-					logic.moveUp();		
-			}
-			if(time == logic.getMoveCount())
-				timer.stop();		
+			if(time % 3 == 0){
+				if(index < logic.getMoveCount()) {
+					try {
+						action = logic.getMovement(index);
+					}
+					catch(Exception e){						
+						timer.stop();
+						solution = false;
+					}
+					index++;
+					
+					if(action.equalsIgnoreCase("left"))
+						logic.moveLeft();
+					else if(action.equalsIgnoreCase("right"))
+						logic.moveRight();
+					else if(action.equalsIgnoreCase("down"))
+						logic.moveDown();
+					else if(action.equalsIgnoreCase("up"))
+						logic.moveUp();	
+				}
+				else {
+					System.out.println("Anasýný SÝKTÝM!");								
+					timer.stop();
+					solution = false;
+				}
+			}	
 		}
 	}
         

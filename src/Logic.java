@@ -35,14 +35,7 @@ public class Logic{
 		return tree.getMovement(i);
 	}
 	
-	//Functions
-	public void updateActiveNode() { // Set active node by getting explore node from the Tree
-		activeNode.setActions(tree.getNode());
-		System.out.println("Logic is updating its active node to following: ");
-		activeNode.printGrids();
-	}
-	
-	//Solve using the tree
+	//Functions	
 	public void solvePuzzle() {
 		int step = 0;
 		while(tree.getActualCost() != 0) {
@@ -53,6 +46,12 @@ public class Logic{
 		tree.printExploredNode();
 		System.out.println("Solution found in " + step + " steps!");
 		System.out.println("Solution has " + tree.getMoveCount() + " moves!");		
+	}
+	
+	public void updateActiveNode() { // Set active node by getting explore node from the Tree
+		activeNode.setActions(tree.getNode());
+		System.out.println("Logic is updating its active node to following: ");
+		activeNode.printGrids();
 	}
 	
 	//Move Grids		
