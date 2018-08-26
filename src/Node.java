@@ -132,6 +132,12 @@ public class Node {
 			this.actions.add(given.actions.get(i));
 	}
 	
+	public void setActions(Node given) {
+		this.actions.clear();
+		for(int i = 0; i < given.actions.size(); i++)
+			this.actions.add(given.actions.get(i));
+	}
+	
 	public void setConfiguration(Grid[][] grids) {
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
@@ -161,10 +167,6 @@ public class Node {
 		//Step cost
 		//System.out.println("Step cost " + getActions().size() + " added to " + cost);
 		cost = cost + ( Double.valueOf(getActions().size() - 1) / 5.0 );
-	}
-	
-	public void setActions(Node given) {
-		actions = given.getActions();
 	}
 	
 	public void addAction(String action) {

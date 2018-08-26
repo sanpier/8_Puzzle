@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 public class MainPanel extends JPanel{
@@ -8,7 +7,13 @@ public class MainPanel extends JPanel{
 	//Properties
 	JFrame frame;
 	Logic logic;
-				
+	
+	boolean visualizeThreat;
+	boolean solution;
+	
+	Timer timer;
+	int time;
+	
 	//JButtons
 	JButton right, left, up, down, solve, exit;
 	
@@ -77,6 +82,11 @@ public class MainPanel extends JPanel{
     	down.addActionListener(listener);
     	solve.addActionListener(listener);
     	exit.addActionListener(listener);
+    		
+    	//Timer
+    	TimerListener timeListener = new TimerListener();
+    	timer = new Timer(1500, timeListener);
+    	time = 0;	
     			
     	//Add components in panel
     	add(right);
@@ -92,6 +102,21 @@ public class MainPanel extends JPanel{
 	{
 		super.paintComponent(g);//Default (must)	
 		logic.draw(this, g);
+		
+		if(solution){
+			for(int i = 0; i <= time; i++){
+				if(logic.getMovement(i).equalsIgnoreCase("left"))
+					logic.moveLeft();
+				else if(logic.getMovement(i).equalsIgnoreCase("right"))
+					logic.moveRight();
+				else if(logic.getMovement(i).equalsIgnoreCase("down"))
+					logic.moveDown();
+				else if(logic.getMovement(i).equalsIgnoreCase("up"))
+					logic.moveUp();		
+			}
+			if(time == logic.getMoveCount())
+				timer.stop();		
+		}
 	}
         
     //Listeners
@@ -113,7 +138,12 @@ public class MainPanel extends JPanel{
 					logic.moveDown();
 				else if(current == solve) {
 					logic.solvePuzzle();
-					visualizeSolution();
+					logic.updateActiveNode();
+					solution = true;
+					
+					time = 0;	
+        			timer.start();
+					repaint();		
 				}
 				else if(current == exit)
 					exit();
@@ -127,24 +157,14 @@ public class MainPanel extends JPanel{
 		}	
 	}	
 	
-    public void visualizeSolution() throws InterruptedException {
-		logic.updateActiveNode();
-		for(int i = 0; i < logic.getMoveCount(); i++) {
-			if(logic.getMovement(i).equalsIgnoreCase("left"))
-				logic.moveLeft();
-			else if(logic.getMovement(i).equalsIgnoreCase("right"))
-				logic.moveRight();
-			else if(logic.getMovement(i).equalsIgnoreCase("down"))
-				logic.moveDown();
-			else if(logic.getMovement(i).equalsIgnoreCase("up"))
-				logic.moveUp();
-			
-			repaint();
-			
-			//Make 1 second delay
-			Thread.sleep(1000);
-		}
-	}
+    public class TimerListener implements ActionListener//Listener for timer
+   	{
+   		public void actionPerformed(ActionEvent event)//Time passing
+   		{			
+   			repaint();								
+   			time++;	
+   		}		
+   	}	
     
     public void exit()//dispose() method exit from frame
 	{
