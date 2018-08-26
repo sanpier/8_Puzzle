@@ -10,13 +10,14 @@ public class Board implements Drawable{
 	//Constructor
 	public Board(Node given)
 	{
+		activeNode = new Node();
 		setActiveNode(given);				
 		icons = new Icons();
 	}
 				
 	//Setter
 	public void setActiveNode(Node given) {
-		activeNode = given;
+		activeNode.setNode(given);
 	}
 	
 	//Draw	Methods

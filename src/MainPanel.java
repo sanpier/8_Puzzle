@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 public class MainPanel extends JPanel{
@@ -110,8 +111,10 @@ public class MainPanel extends JPanel{
 					logic.moveUp();
 				else if(current == down)
 					logic.moveDown();
-				else if(current == solve)
+				else if(current == solve) {
 					logic.solvePuzzle();
+					visualizeSolution();
+				}
 				else if(current == exit)
 					exit();
 				
@@ -123,13 +126,26 @@ public class MainPanel extends JPanel{
 			}				
 		}	
 	}	
-    						    
-    //Functions
-    public Logic getLogic()
-    {
-		return logic;
-	}
 	
+    public void visualizeSolution() throws InterruptedException {
+		logic.updateActiveNode();
+		for(int i = 0; i < logic.getMoveCount(); i++) {
+			if(logic.getMovement(i).equalsIgnoreCase("left"))
+				logic.moveLeft();
+			else if(logic.getMovement(i).equalsIgnoreCase("right"))
+				logic.moveRight();
+			else if(logic.getMovement(i).equalsIgnoreCase("down"))
+				logic.moveDown();
+			else if(logic.getMovement(i).equalsIgnoreCase("up"))
+				logic.moveUp();
+			
+			repaint();
+			
+			//Make 1 second delay
+			Thread.sleep(1000);
+		}
+	}
+    
     public void exit()//dispose() method exit from frame
 	{
 		frame.dispose();
