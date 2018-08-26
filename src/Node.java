@@ -68,7 +68,7 @@ public class Node {
 		Random generator = new Random();
 		int rand = 0;
 		int prerand = 0;
-		for(int i = 0; i < 40; i++) {	//Random 40 actions from the solution configuration
+		for(int i = 0; i < 100; i++) {	//Random 100 actions from the solution configuration
 			rand = generator.nextInt(4);
 			if(rand == 0 && prerand != 1)
 				left();
