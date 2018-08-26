@@ -109,7 +109,7 @@ public class MainPanel extends JPanel{
 		logic.draw(this, g);
 		
 		if(solution){
-			if(time % 3 == 0){
+			if(time % 2 == 0){
 				if(index < logic.getMoveCount()) {
 					try {
 						action = logic.getMovement(index);
